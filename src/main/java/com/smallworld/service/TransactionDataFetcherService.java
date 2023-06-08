@@ -21,7 +21,6 @@ public class TransactionDataFetcherService {
         List<Double> al = new ArrayList<>();
 
         try {
-//            System.out.println("=====" +data);
             List<Transaction> data = objectMapper.readValue(jsonFile, new TypeReference<List<Transaction>>() {
             });
 
@@ -179,6 +178,8 @@ public class TransactionDataFetcherService {
             for (Transaction obj : data) {
                 if (obj.getSenderFullName().equals(clientFullName)) {
                     dummyList.add(obj);
+                } else if (obj.getBeneficiaryFullName().equals(clientFullName)) {
+                    dummyList.add(obj);
                 }
             }
 
@@ -224,6 +225,8 @@ public class TransactionDataFetcherService {
                 };
             }
 
+            System.out.println("Transactions indexed by beneficiary name");
+
         } catch (UnsupportedOperationException e) {
 
             throw new UnsupportedOperationException();
@@ -247,7 +250,7 @@ public class TransactionDataFetcherService {
                     .map(Transaction::getIssueId)
                     .collect(Collectors.toSet());
 
-
+            System.out.println("Issue ids of compliance issues");
 
         } catch (UnsupportedOperationException e) {
 
@@ -270,6 +273,8 @@ public class TransactionDataFetcherService {
                     .filter(obj -> obj.isIssueSolved())
                     .map(Transaction::getIssueMessage)
                     .collect(Collectors.toList());
+
+            System.out.println("List of all solved issue messages");
 
         } catch (UnsupportedOperationException e) {
 
