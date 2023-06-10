@@ -1,25 +1,28 @@
 package com.smallworld;
 
-import com.smallworld.service.TransactionDataFetcherService;
+import com.smallworld.interfaces.TransactionDataFetcherInterface;
 
 public class TransactionDataFetcher {
 
 
-    static TransactionDataFetcherService transactionDataFetcherService = new TransactionDataFetcherService();
+    private final TransactionDataFetcherInterface transactionDataFetcherInterface;
 
+    public TransactionDataFetcher(TransactionDataFetcherInterface transactionDataFetcherInterface) {
+        this.transactionDataFetcherInterface = transactionDataFetcherInterface;
+    }
 
-    public static void main(String[] args) throws Exception {
+    public void performAction() throws Exception {
 
-//        System.out.println(TransactionDataFetcherService.getTotalTransactionAmount());
-//        System.out.println(TransactionDataFetcherService.getTotalTransactionAmountSentBy("Tom Shelby"));
-//        System.out.println(TransactionDataFetcherService.getMaxTransactionAmount());
-//        System.out.println(TransactionDataFetcherService.countUniqueClients());
-//        System.out.println(TransactionDataFetcherService.getTop3TransactionsByAmount());
-//        System.out.println(TransactionDataFetcherService.hasOpenComplianceIssues("Oswald Mosley"));
-//        System.out.println(TransactionDataFetcherService.getTransactionsByBeneficiaryName("Michael Gray"));
-//        System.out.println(TransactionDataFetcherService.getUnsolvedIssueIds());
-//        System.out.println(TransactionDataFetcherService.getAllSolvedIssueMessages());
-        System.out.println(TransactionDataFetcherService.getTopSender());
+        transactionDataFetcherInterface.getTotalTransactionAmount();
+//        transactionDataFetcherInterface.getTotalTransactionAmountSentBy("Tom Shelby");
+//        transactionDataFetcherInterface.getMaxTransactionAmount();
+//        transactionDataFetcherInterface.countUniqueClients();
+//        transactionDataFetcherInterface.getTop3TransactionsByAmount();
+//        transactionDataFetcherInterface.hasOpenComplianceIssues("Oswald Mosley");
+//        transactionDataFetcherInterface.getTransactionsByBeneficiaryName("Michael Gray");
+//        transactionDataFetcherInterface.getUnsolvedIssueIds();
+//        transactionDataFetcherInterface.getAllSolvedIssueMessages();
+//        transactionDataFetcherInterface.getTopSender();
 
     }
 

@@ -6,16 +6,18 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 class TransactionDataFetcherServiceTest {
+
+
+    TransactionDataFetcherService myService = new TransactionDataFetcherService();
+
 
     @Test
     void getTotalTransactionAmount() {
         double expectedSum = 4371.37;
 
         try {
-            double actualSum = TransactionDataFetcherService.getTotalTransactionAmount();
+            double actualSum = myService.getTotalTransactionAmount();
             Assertions.assertEquals(expectedSum, actualSum);
             System.out.println(actualSum);
         } catch (Exception e) {
@@ -30,7 +32,7 @@ class TransactionDataFetcherServiceTest {
         double expectedSum = 828.2599999999999;
 
         try {
-            double actualSum = TransactionDataFetcherService.getTotalTransactionAmountSentBy(senderFullName);
+            double actualSum = myService.getTotalTransactionAmountSentBy(senderFullName);
             Assertions.assertEquals(expectedSum, actualSum);
             System.out.println(actualSum);
         } catch (Exception e) {
@@ -43,7 +45,7 @@ class TransactionDataFetcherServiceTest {
         double expectedAmount = 985.0;
 
         try {
-            double actualMaxAmount = TransactionDataFetcherService.getMaxTransactionAmount();
+            double actualMaxAmount = myService.getMaxTransactionAmount();
             Assertions.assertEquals(expectedAmount, actualMaxAmount);
             System.out.println(actualMaxAmount);
         } catch (Exception e) {
@@ -55,7 +57,7 @@ class TransactionDataFetcherServiceTest {
     void countUniqueClients() {
         long expectedCount = 10;
         try {
-            long actualCount = TransactionDataFetcherService.countUniqueClients();
+            long actualCount = myService.countUniqueClients();
             Assertions.assertEquals(expectedCount, actualCount);
             System.out.println(actualCount);
         } catch (Exception e) {
@@ -73,7 +75,7 @@ class TransactionDataFetcherServiceTest {
         );
 
         try {
-            List<Transaction> actualTop3 = TransactionDataFetcherService.getTop3TransactionsByAmount();
+            List<Transaction> actualTop3 = myService.getTop3TransactionsByAmount();
             Assertions.assertEquals(expectedTop3, actualTop3);
             System.out.println(actualTop3);
         } catch (Exception e) {
@@ -86,7 +88,7 @@ class TransactionDataFetcherServiceTest {
         String clientFullName = "Tom Shelby";
 
         try {
-            boolean actualResult = TransactionDataFetcherService.hasOpenComplianceIssues(clientFullName);
+            boolean actualResult = myService.hasOpenComplianceIssues(clientFullName);
             if (actualResult == true) {
                 Assertions.assertTrue(actualResult, "Expected compliance issue found");
             } else {
@@ -103,7 +105,7 @@ class TransactionDataFetcherServiceTest {
         String beneficiaryName = "Alfie Solomons";
 
         try {
-            Map<String, Transaction> actualResult = TransactionDataFetcherService.getTransactionsByBeneficiaryName( beneficiaryName);
+            Map<String, Transaction> actualResult = myService.getTransactionsByBeneficiaryName( beneficiaryName);
             Assertions.assertNotNull(actualResult, "Expected a non-null result");
 
             Assertions.assertFalse(actualResult.isEmpty(), "Expected at least one transaction");
@@ -119,7 +121,7 @@ class TransactionDataFetcherServiceTest {
     @Test
     void getUnsolvedIssueIds() {
         try {
-            Set<Integer> unsolvedIssueIds = TransactionDataFetcherService.getUnsolvedIssueIds();
+            Set<Integer> unsolvedIssueIds = myService.getUnsolvedIssueIds();
             Assertions.assertNotNull(unsolvedIssueIds, "Expected a non-null result");
 
             // Assert that the set of unsolved issue IDs is not empty
@@ -136,7 +138,7 @@ class TransactionDataFetcherServiceTest {
     void getAllSolvedIssueMessages() {
 
         try {
-            List<String> solvedIssueMessages = TransactionDataFetcherService.getAllSolvedIssueMessages();
+            List<String> solvedIssueMessages = myService.getAllSolvedIssueMessages();
             Assertions.assertNotNull(solvedIssueMessages, "Expected a non-null result");
 
             System.out.println(solvedIssueMessages);
@@ -149,7 +151,7 @@ class TransactionDataFetcherServiceTest {
     @Test
     void getTopSender() {
         try {
-            Optional<String> topSender = TransactionDataFetcherService.getTopSender();
+            Optional<String> topSender = myService.getTopSender();
             Assertions.assertTrue(topSender.isPresent(), "Expected a non-empty result");
 
             System.out.println(topSender);

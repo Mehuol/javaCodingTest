@@ -2,13 +2,14 @@ package com.smallworld.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.smallworld.interfaces.TransactionDataFetcherInterface;
 import com.smallworld.data.Transaction;
 
 import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class TransactionDataFetcherService {
+public class TransactionDataFetcherService implements TransactionDataFetcherInterface {
     static ObjectMapper objectMapper = new ObjectMapper();
     static String absoluteFilePath = "transactions.json";
     static File jsonFile = new File(absoluteFilePath);
@@ -16,7 +17,8 @@ public class TransactionDataFetcherService {
     /**
      * Returns the sum of the amounts of all transactions
      */
-    public static double getTotalTransactionAmount() throws Exception {
+    @Override
+    public double getTotalTransactionAmount() throws Exception {
         double sumOfTransactions = 0.0;
         List<Double> al = new ArrayList<>();
 
@@ -47,7 +49,8 @@ public class TransactionDataFetcherService {
     /**
      * Returns the sum of the amounts of all transactions sent by the specified client
      */
-    public static double getTotalTransactionAmountSentBy(String senderFullName) throws Exception {
+    @Override
+    public double getTotalTransactionAmountSentBy(String senderFullName) throws Exception {
         double sumOfTransactions = 0.0;
         List<Double> al = new ArrayList<>();
         try {
@@ -80,7 +83,8 @@ public class TransactionDataFetcherService {
     /**
      * Returns the highest transaction amount
      */
-    public static double getMaxTransactionAmount() throws Exception {
+    @Override
+    public double getMaxTransactionAmount() throws Exception {
         double maxTransactionAmount = 0.0;
         List<Double> al = new ArrayList<>();
         try {
@@ -110,7 +114,8 @@ public class TransactionDataFetcherService {
     /**
      * Counts the number of unique clients that sent or received a transaction
      */
-    public static long countUniqueClients() throws Exception {
+    @Override
+    public long countUniqueClients() throws Exception {
         long count = 0;
 
         List<Long> list = new ArrayList<>();
@@ -140,7 +145,8 @@ public class TransactionDataFetcherService {
     /**
      * Returns the 3 transactions with the highest amount sorted by amount descending
      */
-    public static List<Transaction> getTop3TransactionsByAmount() throws Exception {
+    @Override
+    public List<Transaction> getTop3TransactionsByAmount() throws Exception {
         List<Transaction> list = new ArrayList<>();
         try {
             List<Transaction> data = objectMapper.readValue(jsonFile, new TypeReference<List<Transaction>>() {
@@ -168,7 +174,8 @@ public class TransactionDataFetcherService {
      * Returns whether a client (sender or beneficiary) has at least one transaction with a compliance
      * issue that has not been solved
      */
-    public static boolean hasOpenComplianceIssues(String clientFullName) throws Exception {
+    @Override
+    public boolean hasOpenComplianceIssues(String clientFullName) throws Exception {
         boolean hasOpenComplianceIssues;
         List<Transaction> dummyList = new ArrayList<>();
         try {
@@ -208,7 +215,8 @@ public class TransactionDataFetcherService {
     /**
      * Returns all transactions indexed by beneficiary name
      */
-    public static Map<String, Transaction> getTransactionsByBeneficiaryName(String beneficiaryName) throws Exception {
+    @Override
+    public Map<String, Transaction> getTransactionsByBeneficiaryName(String beneficiaryName) throws Exception {
         Map<String, Transaction> result = new HashMap<>();
         try {
             List<Transaction> data = objectMapper.readValue(jsonFile, new TypeReference<List<Transaction>>() {
@@ -240,7 +248,8 @@ public class TransactionDataFetcherService {
     /**
      * Returns the identifiers of all open compliance issues
      */
-    public static Set<Integer> getUnsolvedIssueIds() throws Exception {
+    @Override
+    public Set<Integer> getUnsolvedIssueIds() throws Exception {
         Set<Integer>  issueIds;
         try {
             List<Transaction> data = objectMapper.readValue(jsonFile, new TypeReference<List<Transaction>>() {
@@ -264,7 +273,8 @@ public class TransactionDataFetcherService {
     /**
      * Returns a list of all solved issue messages
      */
-    public static List<String> getAllSolvedIssueMessages() throws Exception{
+    @Override
+    public List<String> getAllSolvedIssueMessages() throws Exception{
         List<String> stringList;
         try {
             List<Transaction> data = objectMapper.readValue(jsonFile, new TypeReference<List<Transaction>>() {
@@ -288,7 +298,8 @@ public class TransactionDataFetcherService {
     /**
      * Returns the senderFullName of the sender with the most total sent amount
      */
-    public static Optional<String> getTopSender() throws Exception{
+    @Override
+    public Optional<String> getTopSender() throws Exception{
         Optional<String> senderFullName;
         try{
             List<Transaction> data = objectMapper.readValue(jsonFile, new TypeReference<List<Transaction>>() {
